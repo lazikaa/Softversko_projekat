@@ -1,5 +1,1 @@
-lazar
-dasic
-10/23
-I refuse Kotowaru
-mfgfgfgh
+Lazar Dašić 10/23 - lazikaa
