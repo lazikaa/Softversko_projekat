@@ -68,6 +68,8 @@ def load_images(self, sprite_sheet, animation_steps):
 def move(self, screen_width, screen_height, surface, target):
   SPEED = 4
   GRAVITY = 2
+  dx = 0
+  dy = 0
     
 
 
