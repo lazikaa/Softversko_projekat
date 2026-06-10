@@ -48,16 +48,16 @@ class Fighter():
         self.ai_attack_type = 1
         setup_stats(self)
 
-def load_images(self, sprite_sheet, animation_steps):
-        # Izvlacimo slike sa spritesheetova
-        animation_list = []
-        for y, animation in enumerate(animation_steps):
-            temp_img_list = []
-            for x in range(animation):
-                temp_img = sprite_sheet.subsurface(x * self.size, y * self.size, self.size, self.size).copy().convert_alpha()
-                temp_img.set_colorkey((0, 0, 0))
-                temp_img = pygame.transform.scale(temp_img, (self.size * self.image_scale, self.size * self.image_scale)).convert_alpha()
-                temp_img.set_colorkey((0, 0, 0))
-                temp_img_list.append(temp_img)
-            animation_list.append(temp_img_list)
-        return animation_list
+  def load_images(self, sprite_sheet, animation_steps):
+          # Izvlacimo slike sa spritesheetova
+          animation_list = []
+          for y, animation in enumerate(animation_steps):
+              temp_img_list = []
+              for x in range(animation):
+                  temp_img = sprite_sheet.subsurface(x * self.size, y * self.size, self.size, self.size).copy().convert_alpha()
+                  temp_img.set_colorkey((0, 0, 0))
+                  temp_img = pygame.transform.scale(temp_img, (self.size * self.image_scale, self.size * self.image_scale)).convert_alpha()
+                  temp_img.set_colorkey((0, 0, 0))
+                  temp_img_list.append(temp_img)
+              animation_list.append(temp_img_list)
+          return animation_list
