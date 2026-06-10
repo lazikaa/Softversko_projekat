@@ -48,7 +48,7 @@ class Fighter():
         self.ai_attack_type = 1
         setup_stats(self)
     def load_images(self, sprite_sheet, animation_steps):
-    		# Izvlacimo slike sa spritesheetova
+        # Izvlacimo slike sa spritesheetova
         animation_list = []
         for y, animation in enumerate(animation_steps):
             temp_img_list = []
@@ -60,5 +60,3 @@ class Fighter():
                 temp_img_list.append(temp_img)
             animation_list.append(temp_img_list)
         return animation_list
-			
-				
