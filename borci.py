@@ -78,6 +78,23 @@ def move(self, screen_width, screen_height, surface, target):
   k = pygame.key.get_pressed()
 
   # Ako ne napada moze ostale radnje da radi
+  if self.attacking == False and self.hit == False and self.special == False and self.knockdown == False:
+    self.attack_type = 0
+    # Movement
+    if k[self.controls["left"]] and k[self.controls["run"]]:
+      self.running = True
+      dx = (-SPEED - 1) * 1.5
+    elif k[self.controls["right"]] and k[self.controls["run"]]:
+      self.running = True
+      dx = (SPEED + 1) * 1.5
+    elif k[self.controls["left"]]:
+      self.walking = True
+      dx = -SPEED
+    elif k[self.controls["left"]]:
+      self.walking = True
+      dx = SPEED
+    # Napad
+    
   
 
 
