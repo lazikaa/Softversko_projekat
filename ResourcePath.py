@@ -6,4 +6,4 @@ def resoursce_path(*parts):
         base_dir = Path(sys._MEIPASS)
     else:
         base_dir = Path(__file__).resolve().parent
-    return str(base_dir.joinpath((*paths))
+    return str(base_dir.joinpath(*paths))
