@@ -8,6 +8,7 @@ STAMINA_FILL_TIME = 4000
 HEALTH_BAR = 400
 HEALTH_BAR_HEIGHT = 30
 STAMINA_BAR_HEIGHT = 10
+
 def setup_stats(fighter):
   fighter.health = MAX_HEALTH
   fighter.magic_effects = 0
@@ -22,9 +23,9 @@ def update_stamina(fighter):
 
   if fighter.run_stamina < MAX_STAMINA:
      fighter.run_stamina += MAX_STAMINA * elapsed_time * fighter.stamina_fill_multiplier / STAMINA_FILL_TIME 
-     if fighter.run_stamina > MAX_STAMINA:
+     if fighter.run_stamina > MAX_STAMINA
       fighter.run_stamina = MAX_STAMINA:
-else:
+  else:
       fighter.stamina_fill_multiplier = 1
 
 def draw_status_bars(screen,fighter,x,y):
