@@ -35,6 +35,19 @@ class Fighter():
     self.knockdown_hold_start = None
     self.attack_type = 0
     self.attack_cooldown = 0
+    self.hit = False
+    self.alive = True
+    self.jump_cooldown = 1000
+    self.last_jump_time = -self.jump_cooldown
+    self.run_sound_cooldown = 200
+    self.last_run_sound_time = 0
+    self.next_run_sound = 1
+    self.controls = controls
+    self.attack_rect = None
+    self.ai_next_decision_time = 0
+    self.ai_next_attack_time = 0
+    self.ai_attack_type = 1
+    setup_stats(self)
     
 
 
