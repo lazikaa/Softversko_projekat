@@ -94,7 +94,26 @@ def move(self, screen_width, screen_height, surface, target):
       self.walking = True
       dx = SPEED
     # Napad
-    
+    if k[self.controls["attack1"]] or k[self.controls["attack2"]]:
+      # Procjena vrste napda
+      if k[self.controls["attack1"]]:
+        self.attack_type = 1
+      elif k[self.controls["attack2"]]:
+        self.attack_type = 2
+      self.attack(surface, target)
+  elif self.special == True:
+    self.special_attack(target)
+
+  if self.jump:
+    dx += self.jump_dx
+    self.jump_dx *= 0.97
+
+  #Gravitacija
+  self.vel_Y += GRAVITY
+  dy += self.vel_y
+
+  
+        
   
 
 
