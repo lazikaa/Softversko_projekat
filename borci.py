@@ -70,7 +70,15 @@ def move(self, screen_width, screen_height, surface, target):
   GRAVITY = 2
   dx = 0
   dy = 0
-    
+  self.running = False
+  self.walking = False
+  self.attack_rect = None
+
+  # Keypresses
+  k = pygame.key.get_pressed()
+
+  # Ako ne napada moze ostale radnje da radi
+  
 
 
 
