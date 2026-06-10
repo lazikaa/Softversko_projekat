@@ -47,6 +47,7 @@ class Fighter():
         self.ai_next_attack_time = 0
         self.ai_attack_type = 1
         setup_stats(self)
+      
     def load_images(self, sprite_sheet, animation_steps):
         # Izvlacimo slike sa spritesheetova
         animation_list = []
