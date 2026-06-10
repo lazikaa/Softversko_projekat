@@ -37,3 +37,65 @@ def nacrtaj_tekst_centrirano(screen, tekst, font, boja, y, SCREEN_WIDTH):
     rect = img.get_rect(center=(SCREEN_WIDTH // 2, y))
     screen.blit(img, rect)
     return rect
+
+def napravi_idle_preview(character):
+    sheet = pygame.image.load(resource_path(*character["sheet"])).convert_alpha()
+    size = character["size"]
+    idle_frame = sheet.subsurface(0, size, size, size).copy().convert_alpha()
+    idle_frame.set_colorkey((0, 0, 0))
+    preview_size = int(size * character["scale"])
+    return pygame.transform.scale(idle_frame, (preview_size, preview_size)).convert_alpha()
+
+def pokreni_meni(SCREEN_WIDTH, SCREEN HEIGHT, play_game_funkcija):
+    pygame.init()
+    pygame.mixer.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN HEIGHT))
+    pygame.display.set.caption("Python Fighter")
+    clock = pygame.time.Clock()
+
+
+try:
+    putanja_bg = resource_path("Pozadine", "HDBG.jpg")
+    meni_bg = pygame.image.load(putanja_bg)
+    meni_bg = pygame.transform.scale(meni_bg, (SCREEN_WIDTH, SCREEN_HEIGHT))
+except:
+    meni_bg = None
+
+
+title_font = pygame.font.SysFont("Constantia", 100, bold=True, italic=True)
+font_menu = pygame.font.SysFont("Constantia", 40)
+character_select_font = pygame.font.SysFont("Arial", 40, bold=True)
+small_font = pygame.font.SysFont("Constantia", 25)
+character_previews = []
+for character in CHARACTER_PREVIEWS:
+    character_previews.append({**character, "image": napravi_idle_preview(character)})
+
+
+current_volume = 0.5
+is_muted = False
+show_volume_bar = False
+
+def azuriraj_volumen(vol):
+    podesi_ui_volumen(vol)
+
+azuriraj_volumen(current_volume)
+pusti_muziku_menija()
+
+def loading_screen():
+    start_time = pygame.time.get.ticks()
+    bar_x, bar_y, bar_w = SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT - 60, 300
+    while pygame.time.get_ticks() - start_time < 3500:
+        screen.fill(BOJE["crna"])
+        tacke = "." * ((pygame.time.get_ticks() // 500) % 4)
+        img = small_font.render(f"Loading{tacke}", True, BOJE["bijela"])
+        screen.blit(img, (bar_x + 1, bar_y - 30))
+
+        progres = (pygame.time.get_ticks() - start_time) / 3500
+        pygame.draw.rect(screen, BOJE["bijela"], (bar_x, bar_y, bar_w, 20), 2)
+        pygame.draw.rect(screen, BOJE["zuta"], (bar_x, bar_y, bar_w * progres, 20))
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT: pygame.quit():\; sys.exit()
+        pygame.display.update()
+        clock.tick(60)
+    
