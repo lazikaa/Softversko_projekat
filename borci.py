@@ -63,6 +63,11 @@ def load_images(self, sprite_sheet, animation_steps):
       temp_img_list.append(temp_img)
     animation_list.append(temp_img_list)
   return animation_list
+
+
+def move(self, screen_width, screen_height, surface, target):
+  SPEED = 4
+  GRAVITY = 2
     
 
 
