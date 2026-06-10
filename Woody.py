@@ -36,3 +36,21 @@ class Woody(Fighter):
       and not self.walking
       and not self.running
     )
+
+    if (
+      not self.special
+      and not self.attacking
+      and not self.hit
+      and not self.knockdown
+      and not self.jump
+      and self.alive
+      and standing_still
+      and self.magic_effects >= MAGIC_EFFECTS_REQUIRED
+    ):
+      self.magic_effects = 0
+      self.special = True
+      self.special_hit_done = False
+      self.special_ready_to_move = False
+      self.frame_index = 0
+      self.special_duration = len(self.animation_list[8]) * self.special_animation_cooldown
+      self.update_time = pygame.time.get_ticks()
