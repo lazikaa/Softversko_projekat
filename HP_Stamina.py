@@ -23,10 +23,10 @@ def update_stamina(fighter):
 
   if fighter.run_stamina < MAX_STAMINA:
      fighter.run_stamina += MAX_STAMINA * elapsed_time * fighter.stamina_fill_multiplier / STAMINA_FILL_TIME 
-     if fighter.run_stamina > MAX_STAMINA
-      fighter.run_stamina = MAX_STAMINA:
+     if fighter.run_stamina > MAX_STAMINA:
+       fighter.run_stamina = MAX_STAMINA
   else:
-      fighter.stamina_fill_multiplier = 1
+    fighter.stamina_fill_multiplier = 1
 
 def draw_status_bars(screen,fighter,x,y):
   health_ratio = fighter.health / MAX_HEALTH
