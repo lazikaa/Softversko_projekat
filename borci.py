@@ -61,3 +61,15 @@ class Fighter():
                 temp_img_list.append(temp_img)
             animation_list.append(temp_img_list)
         return animation_list
+
+    def move(self, screen_width, screen_height, surface, target):
+        SPEED = 4
+        GRAVITY = 2
+        dx = 0
+        dy = 0
+        self.running = False
+        self.walking = False
+        self.attack_rect = None
+
+        # Keypresses
+        k = pygame.key.get_pressed()
