@@ -73,3 +73,34 @@ class Fighter():
 
         # Keypresses
         k = pygame.key.get_pressed()
+        # Ako ne napada moze ostale radnje da radi
+        if self.attacking == False and self.hit == False and self.special == False and self.knockdown == False:
+            self.attack_type = 0
+            # Movement
+            if k[self.controls["left"]] and k[self.controls["run"]]:
+                self.running = True
+                dx = (-SPEED - 1) * 1.5
+            elif k[self.controls["right"]] and k[self.controls["run"]]:
+                dx = (SPEED + 1)* 1.5
+                self.running = True
+            elif k[self.controls["left"]]:
+                self.walking = True
+                dx = -SPEED
+            elif k[self.controls["right"]]:
+                dx = SPEED
+                self.walking = True
+            # Napad
+            if k[self.controls["attack1"]] or k[self.controls["attack2"]]:
+                # Procjena vrste napada
+                if k[self.controls["attack1"]]:
+                    self.attack_type = 1
+                elif k[self.controls["attack2"]]:
+                    self.attack_type = 2
+                self.attack(surface, target)
+        elif self.special == True:
+            self.special_attack(target)
+
+        if self.jump:
+            dx += self.jump_dx
+            self.jump_dx *= 0.97
+  
