@@ -98,4 +98,41 @@ def loading_screen():
             if event.type == pygame.QUIT: pygame.quit():\; sys.exit()
         pygame.display.update()
         clock.tick(60)
+
+
+fullscreen = False
+slider_dragging = False
+show_game_modes = False
+selecting_characters = False
+selected_mode = "pvp"
+character_pick = 0
+selected_characters = []
+
+while True:
+        if meni_bg: screen.blit(meni_bg, (0, 0))
+        else: screen.fill((20, 20, 20))
+            
+        mx, my = pygame.mouse.get_pos()
+        nacrtaj_tekst_centrirano(screen, "Python Fighter", title_font, BOJE["zuta"], 120, SCREEN_WIDTH)
+        
+        char_rects = []
+        if selecting_characters:
+            if selected_mode == "pvp":
+                prompt = "Player 1 Choose Character(WSAD)" if character_pick == 0 else "Player 2 Choose Character(Arrow Keys)"
+            else:
+                prompt = "Player Choose Character(WSAD)" if character_pick == 0 else "Computer Character"
+            nacrtaj_tekst_centrirano(screen, prompt, character_select_font, BOJE["bijela"], 220, SCREEN_WIDTH)
+
+            start_x = SCREEN_WIDTH // 2 - 300
+            for i, character in enumerate(character_previews):
+                char_rect = pygame.Rect(start_x + i * 360, 285, 250, 135)
+                char_rects.append(char_rect)
+                boja = BOJE["crvena"] if char_rect.collidepoint((mx, my)) else BOJE["bijela"]
+                name_img = font_menu.render(character["name"], True, boja)
+                name_rect = name_img.get_rect(midleft=(char_rect.left, char_rect.centery))
+                screen.blit(name_img, name_rect)
+                image_rect = character["image"].get_rect(midleft=(name_rect.right + 18, char_rect.centery + 8))
+                screen.blit(character["image"], image_rect)
+
+
     
