@@ -61,3 +61,15 @@ class Woody(Fighter):
       special_distance = int(available_space * 0.36)
       self.special_end_x = self.special_start_x + direction * special_distance
       self.special_end_x = max(self.rect.width // 2, min(self.world_with - self.rect_width // 2, self.special_end_x))
+
+  def special_attack(self, target):
+    if self.action != 8:
+      return
+
+    if not self.special_ready_to_move:
+      self.special_start_time = pygame.time.get_ticks()
+      self.special_ready_to_move = True
+
+    elapsed = pygame.time.get_ticks() - self.special_start_time
+    progress = min(1, elapsed / max(1, self.special_duration))
+    self.rect.centerx = int(self.special_start_x + (self.special_end_x - self.special_start_x) * progress)
