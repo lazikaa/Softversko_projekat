@@ -40,3 +40,37 @@ def podesi_ui_volumen(vol):
     click_sound.set_volume(vol)
     podesi_muziku_volumen(vol) 
 
+def zvuk_bg1():
+    BG1_sound.play()
+
+def zvuk_bg2():
+    BG2_sound.play()
+
+def pusti_nasumicnu_muziku_borbe():
+    zaustavi_muziku_menija()
+    fight_music_channel.stop()
+    fight_music_channel.set_volume(music_volume)
+    fight_music_channel.play(random.choice(fight_music), loops=-1)
+
+def zaustavi_muziku_borbe():
+    fight_music_channel.stop()
+
+def pusti_muziku_menija():
+    if not menu_music_channel.get_busy():
+        menu_music_channel.set_volume(music_volume)
+        menu_music_channel.play(BG_sound, loops=-1)
+
+def zaustavi_muziku_menija():
+    menu_music_channel.stop()
+
+def podesi_muziku_volumen(vol):
+    global music_volume
+    music_volume = max(0, min(1, vol))
+    menu_music_channel.set_volume(music_volume)
+    fight_music_channel.set_volume(music_volume)
+
+def podesi_muziku_borbe_volumen(vol)
+    podesi_muziku_volumen(vol)
+
+def uzmi_muziku_borbe_volumen():
+    return music_volume()
