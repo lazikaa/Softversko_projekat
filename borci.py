@@ -183,8 +183,37 @@ class Fighter():
                     self.jump_dx = 2 if distance_x > 0 else -2
                     self.jump = True
                     self.last_jump_time = current_time
+
+                if (
+                    self.magic_effects >= MAGIC_EFFECTS_REQUIRED
+                    and close_to_target
+                    and current_time >= self.ai_next_attack_time
+                    and random.random() < 0.03
+                ):
+                    self.use_special()
+                    self.ai_next_attack_time = current_time + random.randint(900, 1400)
+            elif self.special == True:
+                self.special_attack(target)
+    
+            if self.jump:
+                dx += self.jump_dx
+                self.jump_dx *= 0.97
+    
+            self.vel_y += GRAVITY
+            dy += self.vel_y
+    
+            if self.rect.left + dx < 0:
+                dx = - self.rect.left
+            if self.rect.right + dx > screen_width:
+                dx = screen_width - self.rect.right
+            if self.rect.bottom + dy > screen_height - 55:
+                self.vel_y = 0
+                self.jump = False
+                self.jump_dx = 0
+                dy = screen_height - 55 - self.rect.bottom
+                
               
-            
+              
 
 
         
