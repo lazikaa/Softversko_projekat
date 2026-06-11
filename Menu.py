@@ -134,5 +134,72 @@ while True:
                 image_rect = character["image"].get_rect(midleft=(name_rect.right + 18, char_rect.centery + 8))
                 screen.blit(character["image"], image_rect)
 
+            opcije = [
+                ("Back", 480, 100)
+             ]
+         elif show_game_modes:
+            opcije = [
+                ("Player Vs Player", 280, 300),
+                ("Player Vs Computer", 340, 360),
+                ("Back", 400, 100)
+             ]
+         else:
+            opcije = [
+                ("Play", 260, 100),
+                ("Sound", 320, 120),
+                ("Full Screen", 380, 200),
+                ("Quit", 440, 100)
+             ]
 
-    
+      rects = []
+        for i, (tekst, y, sirina) in enumerate(opcije):
+            r = pygame.Rect(SCREEN_WIDTH // 2 - sirina // 2, y - 20, sirina, 40)
+            rects.append(r)
+            
+            if r.collidepoint((mx, my)):
+                boja = BOJE["crvena"]
+            else:
+                boja = BOJE["bijela"]
+            
+            nacrtaj_tekst_centrirano(screen, tekst, font_menu, boja, y, SCREEN_WIDTH)
+
+
+      mute_rect = pygame.Rect(0,0,0,0)
+         if show_volume_bar:
+             bx, by, bw = SCREEN_WIDTH // 2 - 100, 500, 200
+             mute_rect = draw_volume_slider(
+                 screen,
+                 bx,
+                 by,
+                 bw,
+                 current_volume,
+                 is_muted,
+                 (mx, my),
+                 BOJE,
+             )
+
+             if slider_dragging and pygame.mouse.get_pressed()[0]:
+                 current_volume = volume_from_mouse(mx, bx, bw)
+                 is_muted = current_volume == 0
+                 azuriraj_volumen(current_volume)
+             elif not pygame.mouse.get_pressed()[0]:
+                 slider_dragging = False
+         else:
+             slider_dragging = False
+
+         for event in pygame.event.get():
+            if event.type == pygame.QUIT: pygame.quit(); sys.exit()
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                slider_dragging = False
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                if show_volume_bar:
+                    bx, by, bw = SCREEN_WIDTH // 2 - 100, 500, 200
+                    slider_rect = pygame.Rect(bx, by - 15, bw, 40)
+                    if slider_rect.collidepoint((mx, my)):
+                        slider_dragging = True
+                        current_volume = volume_from_mouse(mx, bx, bw)
+                        is_muted = current_volume == 0
+                        azuriraj_volumen(current_volume)
+                        continue
+
+
