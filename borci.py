@@ -137,6 +137,30 @@ class Fighter():
         else:
             self.next_run_sound = 1
 
+    def move_ai(self, screen_width, screen_height, surface, target):
+            SPEED = 4
+            GRAVITY = 2
+            if hasattr(self, "world_width"):
+                self.world_width = screen_width
+            dx = 0
+            dy = 0
+            self.running = False
+            self.walking = False
+            self.attack_rect = None
+    
+            current_time = pygame.time.get_ticks()
+            distance_x = target.rect.centerx - self.rect.centerx
+            close_to_target = abs(distance_x) < 90
+    
+            if current_time >= self.ai_next_decision_time:
+                self.ai_attack_type = random.choice((1, 1, 2))
+                self.ai_next_decision_time = current_time + random.randint(350, 850)
+    
+            if self.attacking == False and self.hit == False and self.special == False and self.knockdown == False:
+                self.attack_type = 0
+                self.flip = distance_x < 0
+            
+
 
         
   
