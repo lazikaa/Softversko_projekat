@@ -103,4 +103,19 @@ class Fighter():
         if self.jump:
             dx += self.jump_dx
             self.jump_dx *= 0.97
+        # Gravitacija
+        self.vel_y += GRAVITY
+        dy += self.vel_y
+
+        # Fighter ostaje na ekranu
+        if self.rect.left + dx < 0:
+            dx = - self.rect.left
+        if self.rect.right + dx > screen_width:
+            dx = screen_width - self.rect.right
+        if self.rect.bottom + dy > screen_height - 55:
+            self.vel_y = 0
+            self.jump = False
+            self.jump_dx = 0
+            dy = screen_height - 55 - self.rect.bottom
+        
   
