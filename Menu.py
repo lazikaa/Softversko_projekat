@@ -202,4 +202,43 @@ while True:
                         azuriraj_volumen(current_volume)
                         continue
 
+                if selecting_characters:
+                    for i, char_rect in enumerate(char_rects):
+                        if char_rect.collidepoint((mx, my)):
+                            if not is_muted:
+                                zvuk_click()
+                            selected_characters.append(character_previews[i]["id"])
+                            character_pick += 1
+                            if character_pick >= 2:
+                                loading_screen()
+                                play_game_funkcija(
+                                    screen,
+                                    clock,
+                                    selected_mode,
+                                    selected_characters[0],
+                                    selected_characters[1],
+                                )
+                                selecting_characters = False
+                                show_game_modes = False
+                                character_pick = 0
+                                selected_characters = []
+                            break
 
+                     if rects[0].collidepoint((mx, my)): # Back
+                        if not is_muted:
+                            zvuk_click()
+                        selecting_characters = False
+                        show_game_modes = True
+                        character_pick = 0
+                        selected_characters = []
+                    continue
+
+              if show_game_modes:
+                    if rects[0].collidepoint((mx, my)): 
+                        if not is_muted:
+                            zvuk_click()
+                        selected_mode = "pvp"
+                        selecting_characters = True
+                        character_pick = 0
+                        selected_characters = []
+            
