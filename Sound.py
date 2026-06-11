@@ -11,7 +11,7 @@ run2_sound = pygame.mixer.Sound(resource_path("Zvuk", "IngameSound", "run2.wav")
 miss_sound = pygame.mixer.Sound(resource_path("Zvuk", "InGameSound", "hit.wav"))
 click_sound = pygame.mixer.Sound(resource_path("Zvuk", "UI", "Sound1.mp3"))
 BG_sound = pygame.mixer.Sound(resource_path("Zvuk", "UI", "BG.wav"))
-BG1_sound = pygame.mixer.Sound(resource_path("Zvuk", "UI", BG1.wav))
+BG1_sound = pygame.mixer.Sound(resource_path("Zvuk", "UI", "BG1.wav"))
 BG2_sound = pygame.mixer.Sound(resource_path("Zvuk", "UI", "BG2.wav"))
 menu_music_channel = pygame.mixer.Channel(6)
 fight_music_channel = pygame.mixer.Channel(7)
@@ -69,7 +69,7 @@ def podesi_muziku_volumen(vol):
     menu_music_channel.set_volume(music_volume)
     fight_music_channel.set_volume(music_volume)
 
-def podesi_muziku_borbe_volumen(vol)
+def podesi_muziku_borbe_volumen(vol):
     podesi_muziku_volumen(vol)
 
 def uzmi_muziku_borbe_volumen():
