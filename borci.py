@@ -161,28 +161,28 @@ class Fighter():
                 self.flip = distance_x < 0
 
                 if not close_to_target:
-                direction = 1 if distance_x > 0 else -1
-                self.walking = True
-                dx = SPEED * direction
-                if abs(distance_x) > 260 and self.run_stamina > MAX_STAMINA * 0.35:
-                    self.running = True
-                    self.walking = False
-                    dx = (SPEED + 1) * 1.5 * direction
-            elif self.attack_cooldown == 0 and current_time >= self.ai_next_attack_time:
-                self.attack_type = self.ai_attack_type
-                self.attack(surface, target)
-                self.ai_next_attack_time = current_time + random.randint(650, 1100)
-
-            if (
-                target.jump
-                and not self.jump
-                and current_time - self.last_jump_time >= self.jump_cooldown
-                and random.random() < 0.02
-            ):
-                self.vel_y = -30
-                self.jump_dx = 2 if distance_x > 0 else -2
-                self.jump = True
-                self.last_jump_time = current_time
+                    direction = 1 if distance_x > 0 else -1
+                    self.walking = True
+                    dx = SPEED * direction
+                    if abs(distance_x) > 260 and self.run_stamina > MAX_STAMINA * 0.35:
+                        self.running = True
+                        self.walking = False
+                        dx = (SPEED + 1) * 1.5 * direction
+                elif self.attack_cooldown == 0 and current_time >= self.ai_next_attack_time:
+                    self.attack_type = self.ai_attack_type
+                    self.attack(surface, target)
+                    self.ai_next_attack_time = current_time + random.randint(650, 1100)
+    
+                if (
+                    target.jump
+                    and not self.jump
+                    and current_time - self.last_jump_time >= self.jump_cooldown
+                    and random.random() < 0.02
+                ):
+                    self.vel_y = -30
+                    self.jump_dx = 2 if distance_x > 0 else -2
+                    self.jump = True
+                    self.last_jump_time = current_time
               
             
 
