@@ -117,5 +117,26 @@ class Fighter():
             self.jump = False
             self.jump_dx = 0
             dy = screen_height - 55 - self.rect.bottom
+
+        #Fighteri treba da gledaju jedan u drugog
+        if dx > 0:
+            self.flip = False
+        elif dx < 0:
+            self.flip = True
+
+        # Attack cooldown
+        if self.attack_cooldown > 0:
+            self.attack_cooldown -= 1
+
+        # Update player position
+        self.rect.x += dx
+        self.rect.y += dy
+
+        if self.running:
+            self.play_run_sound()
+        else:
+            self.next_run_sound = 1
+
+
         
   
