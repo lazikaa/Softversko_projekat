@@ -324,6 +324,48 @@ class Fighter():
                     # Ako je igrac u sred napada, napad se zaustavlja
                         self.attacking = False
                         self.attack_cooldown = 20
+
+     def attack(self, surface, target):
+        if self.attack_cooldown == 0 and self.hit == False:
+            self.attacking = True
+
+            hitbox_size = min(self.rect.width, self.rect.height) // 2
+            hitbox_x = self.rect.right - hitbox_size // 2
+            if self.flip:
+                hitbox_x = self.rect.left - hitbox_size // 2
+            attacking_rect = pygame.Rect(
+                hitbox_x,
+                self.rect.centery - hitbox_size // 2,
+                hitbox_size,
+                hitbox_size,
+            )
+            self.attack_rect = attacking_rect.copy()
+            if target.alive and not target.knockdown and attacking_rect.colliderect(target.rect) and not target.jump:
+                if target.has_run_immunity():
+                    zvuk_miss()
+                    return
+
+                effect_ready = self.run_stamina >= MAX_STAMINA
+                stamina_boost_effect = self.attack_type == 1 and effect_ready
+                knockdown_effect = self.attack_type == 2 and effect_ready
+                if stamina_boost_effect:
+                    self.run_stamina = 0
+                    self.stamina_fill_multiplier = 1.5
+                    self.add_magic_effect()
+                elif knockdown_effect:
+                    self.run_stamina = 0
+                    self.add_magic_effect()
+                target.health -= 100
+                target.hit = not knockdown_effect
+                target.knockdown = knockdown_effect
+                target.knockdown_hold_start = None
+                target.attacking = False
+                target.special = False
+                target.special_hit_done = False
+                target.attack_cooldown = 20
+                zvuk_udarac()
+            else:
+                zvuk_miss()
                 
               
               
