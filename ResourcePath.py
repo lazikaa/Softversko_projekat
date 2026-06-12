@@ -1,7 +1,7 @@
 from pathlib import Path
 import sys
 
-def resoursce_path(*parts):
+def resource_path(*parts):
     if hasattr(sys, "_MEIPASS"):
         base_dir = Path(sys._MEIPASS)
     else:
