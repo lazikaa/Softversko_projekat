@@ -325,14 +325,13 @@ class Fighter():
                         self.attacking = False
                         self.attack_cooldown = 20
                         
-	def attack(self, surface, target):
-	    if self.attack_cooldown == 0 and self.hit == False:
-	        self.attacking = True
-	
-	        hitbox_size = min(self.rect.width, self.rect.height) // 2
-	        hitbox_x = self.rect.right - hitbox_size // 2
-	        if self.flip:
-	            hitbox_x = self.rect.left - hitbox_size // 2
+        def attack(self, surface, target):
+            if self.attack_cooldown == 0 and self.hit == False:
+                self.attacking = True
+            hitbox_size = min(self.rect.width, self.rect.height) // 2
+            hitbox_x = self.rect.right - hitbox_size // 2
+            if self.flip:
+                hitbox_x = self.rect.left - hitbox_size // 2
 	        attacking_rect = pygame.Rect(
 	            hitbox_x,
 	            self.rect.centery - hitbox_size // 2,
