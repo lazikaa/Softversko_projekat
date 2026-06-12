@@ -211,6 +211,17 @@ class Fighter():
                 self.jump = False
                 self.jump_dx = 0
                 dy = screen_height - 55 - self.rect.bottom
+            if self.attack_cooldown > 0:
+                self.attack_cooldown -= 1
+    
+            self.rect.x += dx
+            self.rect.y += dy
+    
+            if self.running:
+                self.play_run_sound()
+            else:
+                self.next_run_sound = 1
+            
                 
               
               
