@@ -57,7 +57,7 @@ class Woody(Fighter):
 
       direction = -1 if self.flip else 1
       self.special_start_x = self.rect.centerx
-      available_space = self.special_start_x if self.flip else self.world_with - self.special_start_x
+      available_space = self.special_start_x if self.flip else self.world_width - self.special_start_x
       special_distance = int(available_space * 0.36)
       self.special_end_x = self.special_start_x + direction * special_distance
       self.special_end_x = max(self.rect.width // 2, min(self.world_width - self.rect.width // 2, self.special_end_x))
