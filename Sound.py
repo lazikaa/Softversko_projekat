@@ -7,7 +7,7 @@ pygame.mixer.init()
 udarac_sound = pygame.mixer.Sound(resource_path("Zvuk", "InGameSound", "punch.wav"))
 skok_sound = pygame.mixer.Sound(resource_path("Zvuk", "InGameSound", "jump.wav"))
 run1_sound = pygame.mixer.Sound(resource_path("Zvuk", "InGameSound", "run1.wav"))
-run2_sound = pygame.mixer.Sound(resource_path("Zvuk", "IngameSound", "run2.wav"))
+run2_sound = pygame.mixer.Sound(resource_path("Zvuk", "InGameSound", "run2.wav"))
 miss_sound = pygame.mixer.Sound(resource_path("Zvuk", "InGameSound", "hit.wav"))
 click_sound = pygame.mixer.Sound(resource_path("Zvuk", "UI", "Sound1.mp3"))
 BG_sound = pygame.mixer.Sound(resource_path("Zvuk", "UI", "BG.wav"))
@@ -73,4 +73,4 @@ def podesi_muziku_borbe_volumen(vol):
     podesi_muziku_volumen(vol)
 
 def uzmi_muziku_borbe_volumen():
-    return music_volume()
+    return music_volume
