@@ -32,11 +32,5 @@ def draw_volume_slider(screen, x, y, width, volume, muted, mouse_pos, boje, icon
     draw_speaker_icon(screen, mute_rect.x, mute_rect.y, icon_color, muted, volume, boje)
     return mute_rect
 
-def volume_from_mouse(mouse_x, slider_x, slider_switch):
+def volume_from_mouse(mouse_x, slider_x, slider_width):
     return max(0, min(1, (mouse_x - slider_x) / slider_width))
-
-
-
-
-
-
