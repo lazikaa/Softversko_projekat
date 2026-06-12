@@ -254,6 +254,76 @@ class Fighter():
     def add_magic_effect(self):
         if self.magic_effects < MAGIC_EFFECTS_REQUIRED:
             self.magic_effects += 1
+
+    # Update animacja
+    def update(self):
+        update_stamina(self)
+        # Proveri sta igrac radi
+        if self.health <= 0:
+            self.health = 0
+            self.alive = False
+            self.update_action(3)
+        elif self.knockdown == True:
+            self.update_action(3)
+        elif self.hit == True:
+            self.update_action(6)
+        elif self.attacking == True:
+            if self.attack_type == 1:
+                self.update_action(4)#attack1
+            elif self.attack_type == 2:
+                self.update_action(5)#attack2
+        elif self.special == True:
+            self.update_action(8)
+        elif self.jump == True:
+            self.update_action(0)#jump
+        elif self.walking == True:
+            self.update_action(7)#walk
+        elif self.running == True:
+            self.update_action(2)
+        else:
+            self.update_action(1)#idle
+
+        animation_cooldown = 50
+        if self.action == 4 or self.action == 5:
+            animation_cooldown = int(50 / 1.5)
+        elif self.action == 8:
+            animation_cooldown = self.special_animation_cooldown
+        # Update image
+        self.image = self.animation_list[self.action][self.frame_index]
+        # Provjera vremena od update
+        if pygame.time.get_ticks() - self.update_time > animation_cooldown:
+            self.frame_index += 1
+            self.update_time = pygame.time.get_ticks()
+        #Provjera da li je zavrsena animacija
+            if self.frame_index >= len(self.animation_list[self.action]):
+                # Da li je igrac mrtav zavrsi animaciju
+                if self.alive == False:
+                    self.frame_index = len(self.animation_list[self.action]) - 1
+                elif self.knockdown == True and self.action == 3:
+                    self.frame_index = len(self.animation_list[self.action]) - 1
+                    if self.knockdown_hold_start is None:
+                        self.knockdown_hold_start = pygame.time.get_ticks()
+                    elif pygame.time.get_ticks() - self.knockdown_hold_start >= 1000:
+                        self.knockdown = False
+                        self.knockdown_hold_start = None
+                        self.frame_index = 0
+                else:
+                    self.frame_index = 0
+                    # Da li je zavrsen napad
+                    if self.action == 5 or self.action == 4:
+                        self.attacking = False
+                        self.attack_cooldown = 20
+                    if self.action == 8:
+                        self.special = False
+                        self.special_hit_done = False
+                    if self.action == 3:
+                        self.knockdown = False
+                    # Da li je damage nanesen
+                    if self.action == 6:
+                        self.hit = False
+                    # Ako je igrac u sred napada, napad se zaustavlja
+                        self.attacking = False
+                        self.attack_cooldown = 20
                 
               
               
