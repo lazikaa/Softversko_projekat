@@ -1,12 +1,12 @@
 import random
 import pygame
-from Sound import zvuk_udarac, zvuk_skok, zvuk_run1, zvuk_run1, zvuk_run2, zvuk_miss
+from Sound import zvuk_udarac, zvuk_skok, zvuk_run1, zvuk_run2, zvuk_miss
 from HP_Stamina import (
-  MAGIC_EFFECTS_REQUIRED,
-  MAX_HEALTH, 
-  MAX_STAMINA,
-  setup_stats,
-  update_stamina,
+    MAGIC_EFFECTS_REQUIRED,
+    MAX_HEALTH,
+    MAX_STAMINA,
+    setup_stats,
+    update_stamina,
 )
 
 class Fighter():
@@ -47,7 +47,7 @@ class Fighter():
         self.ai_next_attack_time = 0
         self.ai_attack_type = 1
         setup_stats(self)
-      
+
     def load_images(self, sprite_sheet, animation_steps):
         # Izvlacimo slike sa spritesheetova
         animation_list = []
@@ -73,6 +73,7 @@ class Fighter():
 
         # Keypresses
         k = pygame.key.get_pressed()
+        
         # Ako ne napada moze ostale radnje da radi
         if self.attacking == False and self.hit == False and self.special == False and self.knockdown == False:
             self.attack_type = 0
@@ -103,6 +104,7 @@ class Fighter():
         if self.jump:
             dx += self.jump_dx
             self.jump_dx *= 0.97
+        
         # Gravitacija
         self.vel_y += GRAVITY
         dy += self.vel_y
@@ -117,7 +119,7 @@ class Fighter():
             self.jump = False
             self.jump_dx = 0
             dy = screen_height - 55 - self.rect.bottom
-
+        
         #Fighteri treba da gledaju jedan u drugog
         if dx > 0:
             self.flip = False
@@ -138,100 +140,101 @@ class Fighter():
             self.next_run_sound = 1
 
     def move_ai(self, screen_width, screen_height, surface, target):
-            SPEED = 4
-            GRAVITY = 2
-            if hasattr(self, "world_width"):
-                self.world_width = screen_width
-            dx = 0
-            dy = 0
-            self.running = False
-            self.walking = False
-            self.attack_rect = None
-    
-            current_time = pygame.time.get_ticks()
-            distance_x = target.rect.centerx - self.rect.centerx
-            close_to_target = abs(distance_x) < 90
-    
-            if current_time >= self.ai_next_decision_time:
-                self.ai_attack_type = random.choice((1, 1, 2))
-                self.ai_next_decision_time = current_time + random.randint(350, 850)
-    
-            if self.attacking == False and self.hit == False and self.special == False and self.knockdown == False:
-                self.attack_type = 0
-                self.flip = distance_x < 0
+        SPEED = 4
+        GRAVITY = 2
+        if hasattr(self, "world_width"):
+            self.world_width = screen_width
+        dx = 0
+        dy = 0
+        self.running = False
+        self.walking = False
+        self.attack_rect = None
 
-                if not close_to_target:
-                    direction = 1 if distance_x > 0 else -1
-                    self.walking = True
-                    dx = SPEED * direction
-                    if abs(distance_x) > 260 and self.run_stamina > MAX_STAMINA * 0.35:
-                        self.running = True
-                        self.walking = False
-                        dx = (SPEED + 1) * 1.5 * direction
-                elif self.attack_cooldown == 0 and current_time >= self.ai_next_attack_time:
-                    self.attack_type = self.ai_attack_type
-                    self.attack(surface, target)
-                    self.ai_next_attack_time = current_time + random.randint(650, 1100)
-    
-                if (
-                    target.jump
-                    and not self.jump
-                    and current_time - self.last_jump_time >= self.jump_cooldown
-                    and random.random() < 0.02
-                ):
-                    self.vel_y = -30
-                    self.jump_dx = 2 if distance_x > 0 else -2
-                    self.jump = True
-                    self.last_jump_time = current_time
+        current_time = pygame.time.get_ticks()
+        distance_x = target.rect.centerx - self.rect.centerx
+        close_to_target = abs(distance_x) < 90
 
-                if (
-                    self.magic_effects >= MAGIC_EFFECTS_REQUIRED
-                    and close_to_target
-                    and current_time >= self.ai_next_attack_time
-                    and random.random() < 0.03
-                ):
-                    self.use_special()
-                    self.ai_next_attack_time = current_time + random.randint(900, 1400)
-            elif self.special == True:
-                self.special_attack(target)
-    
-            if self.jump:
-                dx += self.jump_dx
-                self.jump_dx *= 0.97
-    
-            self.vel_y += GRAVITY
-            dy += self.vel_y
-    
-            if self.rect.left + dx < 0:
-                dx = - self.rect.left
-            if self.rect.right + dx > screen_width:
-                dx = screen_width - self.rect.right
-            if self.rect.bottom + dy > screen_height - 55:
-                self.vel_y = 0
-                self.jump = False
-                self.jump_dx = 0
-                dy = screen_height - 55 - self.rect.bottom
-            if self.attack_cooldown > 0:
-                self.attack_cooldown -= 1
-    
-            self.rect.x += dx
-            self.rect.y += dy
-    
-            if self.running:
-                self.play_run_sound()
-            else:
-                self.next_run_sound = 1
+        if current_time >= self.ai_next_decision_time:
+            self.ai_attack_type = random.choice((1, 1, 2))
+            self.ai_next_decision_time = current_time + random.randint(350, 850)
+
+        if self.attacking == False and self.hit == False and self.special == False and self.knockdown == False:
+            self.attack_type = 0
+            self.flip = distance_x < 0
+
+            if not close_to_target:
+                direction = 1 if distance_x > 0 else -1
+                self.walking = True
+                dx = SPEED * direction
+                if abs(distance_x) > 260 and self.run_stamina > MAX_STAMINA * 0.35:
+                    self.running = True
+                    self.walking = False
+                    dx = (SPEED + 1) * 1.5 * direction
+            elif self.attack_cooldown == 0 and current_time >= self.ai_next_attack_time:
+                self.attack_type = self.ai_attack_type
+                self.attack(surface, target)
+                self.ai_next_attack_time = current_time + random.randint(650, 1100)
+
+            if (
+                target.jump
+                and not self.jump
+                and current_time - self.last_jump_time >= self.jump_cooldown
+                and random.random() < 0.02
+            ):
+                self.vel_y = -30
+                self.jump_dx = 2 if distance_x > 0 else -2
+                self.jump = True
+                self.last_jump_time = current_time
+
+            if (
+                self.magic_effects >= MAGIC_EFFECTS_REQUIRED
+                and close_to_target
+                and current_time >= self.ai_next_attack_time
+                and random.random() < 0.03
+            ):
+                self.use_special()
+                self.ai_next_attack_time = current_time + random.randint(900, 1400)
+        elif self.special == True:
+            self.special_attack(target)
+
+        if self.jump:
+            dx += self.jump_dx
+            self.jump_dx *= 0.97
+
+        self.vel_y += GRAVITY
+        dy += self.vel_y
+
+        if self.rect.left + dx < 0:
+            dx = - self.rect.left
+        if self.rect.right + dx > screen_width:
+            dx = screen_width - self.rect.right
+        if self.rect.bottom + dy > screen_height - 55:
+            self.vel_y = 0
+            self.jump = False
+            self.jump_dx = 0
+            dy = screen_height - 55 - self.rect.bottom
+
+        if self.attack_cooldown > 0:
+            self.attack_cooldown -= 1
+
+        self.rect.x += dx
+        self.rect.y += dy
+
+        if self.running:
+            self.play_run_sound()
+        else:
+            self.next_run_sound = 1
 
     def play_run_sound(self):
-            current_time = pygame.time.get_ticks()
-            if current_time - self.last_run_sound_time >= self.run_sound_cooldown:
-                if self.next_run_sound == 1:
-                    zvuk_run1()
-                    self.next_run_sound = 2
-                else:
-                    zvuk_run2()
-                    self.next_run_sound = 1
-                self.last_run_sound_time = current_time
+        current_time = pygame.time.get_ticks()
+        if current_time - self.last_run_sound_time >= self.run_sound_cooldown:
+            if self.next_run_sound == 1:
+                zvuk_run1()
+                self.next_run_sound = 2
+            else:
+                zvuk_run2()
+                self.next_run_sound = 1
+            self.last_run_sound_time = current_time
 
     def try_jump(self):
         current_time = pygame.time.get_ticks()
@@ -324,56 +327,57 @@ class Fighter():
                     # Ako je igrac u sred napada, napad se zaustavlja
                         self.attacking = False
                         self.attack_cooldown = 20
-                        
-        def attack(self, surface, target):
-            if self.attack_cooldown == 0 and self.hit == False:
-                self.attacking = True
-            hitbox_size = min(self.rect.width, self.rect.height) // 2
-            hitbox_x = self.rect.right - hitbox_size // 2
-            if self.flip:
-                hitbox_x = self.rect.left - hitbox_size // 2
-            attacking_rect = pygame.Rect(
-                hitbox_x,
-                self.rect.centery - hitbox_size // 2,
-                hitbox_size,
-                hitbox_size,
-            )
-            self.attack_rect = attacking_rect.copy()
-            if target.alive and not target.knockdown and attacking_rect.colliderect(target.rect) and not target.jump:
-                if target.has_run_immunity():
-                    zvuk_miss()
-                    return
 
-                effect_ready = self.run_stamina >= MAX_STAMINA
-                stamina_boost_effect = self.attack_type == 1 and effect_ready
-                knockdown_effect = self.attack_type == 2 and effect_ready
-                if stamina_boost_effect:
-                    self.run_stamina = 0
-                    self.stamina_fill_multiplier = 1.5
-                    self.add_magic_effect()
-                elif knockdown_effect:
-                    self.run_stamina = 0
-                    self.add_magic_effect()
-                target.health -= 100
-                target.hit = not knockdown_effect
-                target.knockdown = knockdown_effect
-                target.knockdown_hold_start = None
-                target.attacking = False
-                target.special = False
-                target.special_hit_done = False
-                target.attack_cooldown = 20
-                zvuk_udarac()
-            else:
+    def attack(self, surface, target):
+        if self.attack_cooldown == 0 and self.hit == False:
+            self.attacking = True
+
+        hitbox_size = min(self.rect.width, self.rect.height) // 2
+        hitbox_x = self.rect.right - hitbox_size // 2
+        if self.flip:
+            hitbox_x = self.rect.left - hitbox_size // 2
+        attacking_rect = pygame.Rect(
+            hitbox_x,
+            self.rect.centery - hitbox_size // 2,
+            hitbox_size,
+            hitbox_size,
+        )
+        self.attack_rect = attacking_rect.copy()
+        if target.alive and not target.knockdown and attacking_rect.colliderect(target.rect) and not target.jump:
+            if target.has_run_immunity():
                 zvuk_miss()
-              
+                return
+
+            effect_ready = self.run_stamina >= MAX_STAMINA
+            stamina_boost_effect = self.attack_type == 1 and effect_ready
+            knockdown_effect = self.attack_type == 2 and effect_ready
+            if stamina_boost_effect:
+                self.run_stamina = 0
+                self.stamina_fill_multiplier = 1.5
+                self.add_magic_effect()
+            elif knockdown_effect:
+                self.run_stamina = 0
+                self.add_magic_effect()
+            target.health -= 100
+            target.hit = not knockdown_effect
+            target.knockdown = knockdown_effect
+            target.knockdown_hold_start = None
+            target.attacking = False
+            target.special = False
+            target.special_hit_done = False
+            target.attack_cooldown = 20
+            zvuk_udarac()
+        else:
+            zvuk_miss()
+            
     def update_action(self, new_action):
-      # Provjera da li je drugacija radnja
-      if new_action != self.action:
+        # Provjera da li je drugacija radnja
+        if new_action != self.action:
             self.action = new_action
             # Update animation
             self.frame_index = 0
             self.update_time = pygame.time.get_ticks()
-
+    
     def draw(self, surface, camera_x=0):
         img = pygame.transform.flip(self.image, self.flip, False)
         y_offset = self.offset[1]
