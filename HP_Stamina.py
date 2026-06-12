@@ -15,3 +15,15 @@ def setup_stats(fighter):
     fighter.run_stamina = 20
     fighter.stamina_fill_multiplier = 1
     fighter.last_stamina_update = pygame.time.get_ticks()
+
+def update_stamina(fighter):
+    current_time = pygame.time.get_ticks()
+    elapsed_time = current_time - fighter.last_stamina_update
+    fighter.last_stamina_update = current_time
+
+    if fighter.run_stamina < MAX_STAMINA:
+        fighter.run_stamina += MAX_STAMINA * elapsed_time * fighter.stamina_fill_multiplier / STAMINA_FILL_TIME
+        if fighter.run_stamina > MAX_STAMINA:
+            fighter.run_stamina = MAX_STAMINA
+    else:
+        fighter.stamina_fill_multiplier = 1
