@@ -366,7 +366,7 @@ class Fighter():
             else:
                 zvuk_miss()
 
-def update_action(self, new_action):
+    def update_action(self, new_action):
         # Provjera da li je drugacija radnja
         if new_action != self.action:
             self.action = new_action
