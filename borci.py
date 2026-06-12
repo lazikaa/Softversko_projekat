@@ -380,3 +380,4 @@ class Fighter():
         if self.action == 3:
             y_offset -= 18
         surface.blit(img, (self.rect.x - camera_x - self.offset[0], self.rect.y - y_offset))
+      #######
