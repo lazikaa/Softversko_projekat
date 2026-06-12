@@ -73,3 +73,15 @@ class Woody(Fighter):
     elapsed = pygame.time.get_ticks() - self.special_start_time
     progress = min(1, elapsed / max(1, self.special_duration))
     self.rect.centerx = int(self.special_start_x + (self.special_end_x - self.special_start_x) * progress)
+
+    hitbox_width = self.rect.width
+    hitbox_height = self.rect.height // 3
+    hitbox_x = self.rect.right - hitbox_width // 2
+    if self.flip:
+      hitbox_x = self.rect.left - hitbox_width // 2
+    attacking_rect = pygame.Rect(
+      hitbox_x,
+      self.rect.bottom - hitbox_height - 20,
+      hitbox_width,
+      hitbox_height,
+    )
