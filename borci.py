@@ -222,16 +222,16 @@ class Fighter():
             else:
                 self.next_run_sound = 1
 
-def play_run_sound(self):
-        current_time = pygame.time.get_ticks()
-        if current_time - self.last_run_sound_time >= self.run_sound_cooldown:
-            if self.next_run_sound == 1:
-                zvuk_run1()
-                self.next_run_sound = 2
-            else:
-                zvuk_run2()
-                self.next_run_sound = 1
-            self.last_run_sound_time = current_time
+    def play_run_sound(self):
+            current_time = pygame.time.get_ticks()
+            if current_time - self.last_run_sound_time >= self.run_sound_cooldown:
+                if self.next_run_sound == 1:
+                    zvuk_run1()
+                    self.next_run_sound = 2
+                else:
+                    zvuk_run2()
+                    self.next_run_sound = 1
+                self.last_run_sound_time = current_time
 
     def try_jump(self):
         current_time = pygame.time.get_ticks()
