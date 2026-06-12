@@ -332,7 +332,7 @@ class Fighter():
             hitbox_x = self.rect.right - hitbox_size // 2
             if self.flip:
                 hitbox_x = self.rect.left - hitbox_size // 2
-			attacking_rect = pygame.Rect(
+            attacking_rect = pygame.Rect(
 	            hitbox_x,
 	            self.rect.centery - hitbox_size // 2,
 	            hitbox_size,
