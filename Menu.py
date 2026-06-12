@@ -46,11 +46,11 @@ def napravi_idle_preview(character):
     preview_size = int(size * character["scale"])
     return pygame.transform.scale(idle_frame, (preview_size, preview_size)).convert_alpha()
 
-def pokreni_meni(SCREEN_WIDTH, SCREEN HEIGHT, play_game_funkcija):
+def pokreni_meni(SCREEN_WIDTH, SCREEN_HEIGHT, play_game_funkcija):
     pygame.init()
     pygame.mixer.init()
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN HEIGHT))
-    pygame.display.set.caption("Python Fighter")
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.display.set_caption("Python Fighter")
     clock = pygame.time.Clock()
 
 
@@ -82,7 +82,7 @@ azuriraj_volumen(current_volume)
 pusti_muziku_menija()
 
 def loading_screen():
-    start_time = pygame.time.get.ticks()
+    start_time = pygame.time.get_ticks()
     bar_x, bar_y, bar_w = SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT - 60, 300
     while pygame.time.get_ticks() - start_time < 3500:
         screen.fill(BOJE["crna"])
@@ -95,7 +95,7 @@ def loading_screen():
         pygame.draw.rect(screen, BOJE["zuta"], (bar_x, bar_y, bar_w * progres, 20))
 
         for event in pygame.event.get():
-            if event.type == pygame.QUIT: pygame.quit():\; sys.exit()
+            if event.type == pygame.QUIT: pygame.quit(); sys.exit()
         pygame.display.update()
         clock.tick(60)
 
