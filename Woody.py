@@ -24,7 +24,7 @@ class Woody(Fighter):
     self.world_with = 0
 
   def move(self, screen_width, screen_height, surface, target):
-    self.world_with = screen_width
+    self.world_width = screen_width
     super().move(screen_width, screen_height, surface, target)
 
   def use_special(self):
@@ -56,7 +56,7 @@ class Woody(Fighter):
       self.update_time = pygame.time.get_ticks()
 
       direction = -1 if self.flip else 1
-      self.special_start_x = self.rect.centerx
+      self.special_start_x = self.rect_centerx
       available_space = self.special_start_x if self.flip else self.world_with - self.special_start_x
       special_distance = int(available_space * 0.36)
       self.special_end_x = self.special_start_x + direction * special_distance
