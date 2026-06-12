@@ -62,51 +62,51 @@ def pokreni_meni(SCREEN_WIDTH, SCREEN_HEIGHT, play_game_funkcija):
         meni_bg = None
 
 
-title_font = pygame.font.SysFont("Constantia", 100, bold=True, italic=True)
-font_menu = pygame.font.SysFont("Constantia", 40)
-character_select_font = pygame.font.SysFont("Arial", 40, bold=True)
-small_font = pygame.font.SysFont("Constantia", 25)
-character_previews = []
-for character in CHARACTER_PREVIEWS:
-    character_previews.append({**character, "image": napravi_idle_preview(character)})
-
-
-current_volume = 0.5
-is_muted = False
-show_volume_bar = False
-
-def azuriraj_volumen(vol):
-    podesi_ui_volumen(vol)
-
-azuriraj_volumen(current_volume)
-pusti_muziku_menija()
-
-def loading_screen():
-    start_time = pygame.time.get_ticks()
-    bar_x, bar_y, bar_w = SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT - 60, 300
-    while pygame.time.get_ticks() - start_time < 3500:
-        screen.fill(BOJE["crna"])
-        tacke = "." * ((pygame.time.get_ticks() // 500) % 4)
-        img = small_font.render(f"Loading{tacke}", True, BOJE["bijela"])
-        screen.blit(img, (bar_x + 1, bar_y - 30))
-
-        progres = (pygame.time.get_ticks() - start_time) / 3500
-        pygame.draw.rect(screen, BOJE["bijela"], (bar_x, bar_y, bar_w, 20), 2)
-        pygame.draw.rect(screen, BOJE["zuta"], (bar_x, bar_y, bar_w * progres, 20))
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT: pygame.quit(); sys.exit()
-        pygame.display.update()
-        clock.tick(60)
-
-
-fullscreen = False
-slider_dragging = False
-show_game_modes = False
-selecting_characters = False
-selected_mode = "pvp"
-character_pick = 0
-selected_characters = []
+    title_font = pygame.font.SysFont("Constantia", 100, bold=True, italic=True)
+    font_menu = pygame.font.SysFont("Constantia", 40)
+    character_select_font = pygame.font.SysFont("Arial", 40, bold=True)
+    small_font = pygame.font.SysFont("Constantia", 25)
+    character_previews = []
+    for character in CHARACTER_PREVIEWS:
+        character_previews.append({**character, "image": napravi_idle_preview(character)})
+    
+    
+    current_volume = 0.5
+    is_muted = False
+    show_volume_bar = False
+    
+    def azuriraj_volumen(vol):
+        podesi_ui_volumen(vol)
+    
+    azuriraj_volumen(current_volume)
+    pusti_muziku_menija()
+    
+    def loading_screen():
+        start_time = pygame.time.get_ticks()
+        bar_x, bar_y, bar_w = SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT - 60, 300
+        while pygame.time.get_ticks() - start_time < 3500:
+            screen.fill(BOJE["crna"])
+            tacke = "." * ((pygame.time.get_ticks() // 500) % 4)
+            img = small_font.render(f"Loading{tacke}", True, BOJE["bijela"])
+            screen.blit(img, (bar_x + 1, bar_y - 30))
+    
+            progres = (pygame.time.get_ticks() - start_time) / 3500
+            pygame.draw.rect(screen, BOJE["bijela"], (bar_x, bar_y, bar_w, 20), 2)
+            pygame.draw.rect(screen, BOJE["zuta"], (bar_x, bar_y, bar_w * progres, 20))
+    
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT: pygame.quit(); sys.exit()
+            pygame.display.update()
+            clock.tick(60)
+    
+    
+    fullscreen = False
+    slider_dragging = False
+    show_game_modes = False
+    selecting_characters = False
+    selected_mode = "pvp"
+    character_pick = 0
+    selected_characters = []
 
 while True:
         if meni_bg: screen.blit(meni_bg, (0, 0))
