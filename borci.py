@@ -332,17 +332,17 @@ class Fighter():
             hitbox_x = self.rect.right - hitbox_size // 2
             if self.flip:
                 hitbox_x = self.rect.left - hitbox_size // 2
-	        attacking_rect = pygame.Rect(
+			attacking_rect = pygame.Rect(
 	            hitbox_x,
 	            self.rect.centery - hitbox_size // 2,
 	            hitbox_size,
 	            hitbox_size,
 	        )
-	        self.attack_rect = attacking_rect.copy()
-	        if target.alive and not target.knockdown and attacking_rect.colliderect(target.rect) and not target.jump:
-	            if target.has_run_immunity():
-	                zvuk_miss()
-	                return
+			self.attack_rect = attacking_rect.copy()
+			if target.alive and not target.knockdown and attacking_rect.colliderect(target.rect) and not target.jump:
+				if target.has_run_immunity():
+					zvuk_miss()
+					return
 	
 	            effect_ready = self.run_stamina >= MAX_STAMINA
 	            stamina_boost_effect = self.attack_type == 1 and effect_ready
