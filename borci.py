@@ -365,6 +365,21 @@ class Fighter():
                 zvuk_udarac()
             else:
                 zvuk_miss()
+
+def update_action(self, new_action):
+        # Provjera da li je drugacija radnja
+        if new_action != self.action:
+            self.action = new_action
+            # Update animation
+            self.frame_index = 0
+            self.update_time = pygame.time.get_ticks()
+    
+    def draw(self, surface, camera_x=0):
+        img = pygame.transform.flip(self.image, self.flip, False)
+        y_offset = self.offset[1]
+        if self.action == 3:
+            y_offset -= 18
+        surface.blit(img, (self.rect.x - camera_x - self.offset[0], self.rect.y - y_offset))
                 
               
               
