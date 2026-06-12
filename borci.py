@@ -325,7 +325,7 @@ class Fighter():
                         self.attacking = False
                         self.attack_cooldown = 20
 
-    def attack(self, surface, target):
+  def attack(self, surface, target):
         if self.attack_cooldown == 0 and self.hit == False:
             self.attacking = True
 
