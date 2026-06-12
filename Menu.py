@@ -108,7 +108,7 @@ def pokreni_meni(SCREEN_WIDTH, SCREEN_HEIGHT, play_game_funkcija):
     character_pick = 0
     selected_characters = []
 
-        while True:
+    while True:
         if meni_bg: screen.blit(meni_bg, (0, 0))
         else: screen.fill((20, 20, 20))
             
