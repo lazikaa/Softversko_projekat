@@ -224,7 +224,7 @@ while True:
                                 selected_characters = []
                             break
 
-                     if rects[0].collidepoint((mx, my)): # Back
+                     if rects[0].collidepoint((mx, my)): 
                         if not is_muted:
                             zvuk_click()
                         selecting_characters = False
@@ -241,4 +241,55 @@ while True:
                         selecting_characters = True
                         character_pick = 0
                         selected_characters = []
+
+                    elif rects[1].collidepoint((mx, my)): 
+                        if not is_muted:
+                            zvuk_click()
+                        selected_mode = "ai"
+                        selecting_characters = True
+                        character_pick = 0
+                        selected_characters = []
+
+                    elif rects[2].collidepoint((mx, my)): 
+                        if not is_muted:
+                            zvuk_click()
+                        show_game_modes = False
+                    continue
+
+                if rects[0].collidepoint((mx, my)): 
+                    if not is_muted:
+                        zvuk_click()
+                    show_game_modes = True
+                    show_volume_bar = False
+
+                elif rects[1].collidepoint((mx, my)): 
+                    if not is_muted:
+                        zvuk_click()
+                    show_volume_bar = not show_volume_bar
+                
+                elif show_volume_bar and mute_rect.collidepoint((mx, my)): 
+                    if not is_muted:
+                        zvuk_click()
+                    if is_muted or current_volume == 0:
+                        is_muted = False
+                        if current_volume == 0:
+                            current_volume = 0.5
+                    else:
+                        is_muted = True
+                    azuriraj_volumen(0 if is_muted else current_volume)
             
+                elif rects[2].collidepoint((mx, my)): 
+                    if not is_muted:
+                        zvuk_click()
+                    fullscreen = not fullscreen
+                    flags = pygame.FULLSCREEN | pygame.SCALED if fullscreen else 0
+                    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), flags)
+                    if meni_bg: meni_bg = pygame.transform.scale(meni_bg, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                
+                elif rects[3].collidepoint((mx, my)): 
+                    if not is_muted:
+                        zvuk_click()
+                    pygame.quit(); sys.exit()
+
+        pygame.display.update()
+        clock.tick(60)
