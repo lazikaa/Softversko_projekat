@@ -54,12 +54,12 @@ def pokreni_meni(SCREEN_WIDTH, SCREEN_HEIGHT, play_game_funkcija):
     clock = pygame.time.Clock()
 
 
-try:
-    putanja_bg = resource_path("Pozadine", "HDBG.jpg")
-    meni_bg = pygame.image.load(putanja_bg)
-    meni_bg = pygame.transform.scale(meni_bg, (SCREEN_WIDTH, SCREEN_HEIGHT))
-except:
-    meni_bg = None
+    try:
+        putanja_bg = resource_path("Pozadine", "HDBG.jpg")
+        meni_bg = pygame.image.load(putanja_bg)
+        meni_bg = pygame.transform.scale(meni_bg, (SCREEN_WIDTH, SCREEN_HEIGHT))
+    except:
+        meni_bg = None
 
 
 title_font = pygame.font.SysFont("Constantia", 100, bold=True, italic=True)
