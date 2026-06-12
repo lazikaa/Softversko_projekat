@@ -221,7 +221,39 @@ class Fighter():
                 self.play_run_sound()
             else:
                 self.next_run_sound = 1
-            
+
+def play_run_sound(self):
+        current_time = pygame.time.get_ticks()
+        if current_time - self.last_run_sound_time >= self.run_sound_cooldown:
+            if self.next_run_sound == 1:
+                zvuk_run1()
+                self.next_run_sound = 2
+            else:
+                zvuk_run2()
+                self.next_run_sound = 1
+            self.last_run_sound_time = current_time
+
+    def try_jump(self):
+        current_time = pygame.time.get_ticks()
+        if not self.jump and not self.hit and not self.knockdown and self.alive and current_time - self.last_jump_time >= self.jump_cooldown:
+            k = pygame.key.get_pressed()
+            self.vel_y = -30
+            if k[self.controls["left"]]:
+                self.jump_dx = -4.55
+            elif k[self.controls["right"]]:
+                self.jump_dx = 4.55
+            else:
+                self.jump_dx = 0
+            self.jump = True
+            self.last_jump_time = current_time
+            zvuk_skok()
+
+    def has_run_immunity(self):
+        return self.running and self.run_stamina >= MAX_STAMINA
+
+    def add_magic_effect(self):
+        if self.magic_effects < MAGIC_EFFECTS_REQUIRED:
+            self.magic_effects += 1
                 
               
               
