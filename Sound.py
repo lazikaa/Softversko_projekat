@@ -38,7 +38,7 @@ def zvuk_click():
 
 def podesi_ui_volumen(vol):
     click_sound.set_volume(vol)
-    podesi_muziku_volumen(vol) 
+    podesi_muziku_volumen(vol)
 
 def zvuk_bg1():
     BG1_sound.play()
