@@ -85,3 +85,27 @@ class Woody(Fighter):
       hitbox_width,
       hitbox_height,
     )
+    self.attack_rect = attacking_rect.copy()
+
+    if not self.special_hit_done and target.alive and not target.knockdown and attacking_rect.colliderect(target.rect):
+      if target.has_run_immunity():
+        return
+
+      target.health -= 21
+      target.hit = False
+      target.knockdown = True
+      target.knockdown_hold_start = None
+      target.attacking = False
+      target.special = False
+      target.special_hit_done = False
+      target.attack_cooldown = 20
+      target.frame_index = 0
+      target.update_time = pygame.time.get_ticks()
+      self.special_hit_done = True
+      zvuk_udarac()
+
+
+def create_woody(x, y, flip, controls):
+  woody = Woody(x, y, flip, WOODY_DATA, WOODY_SHEET, WOODY_ANIMATION, controls)
+  woody.special_animation_cooldown = 55
+  return woody
