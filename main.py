@@ -43,3 +43,16 @@ CHARACTERS = {
 
 # Resursi
 bg_image = pygame.image.load(resource_path("Pozadine", "W3.jpg"))
+
+def draw_player_label(screen, fighter, label, font, camera_x):
+    text_surface = font.render(label, True, (255, 255, 255))
+    text_rect = text_surface.get_rect(center=(fighter.rect.centerx - camera_x, fighter.rect.bottom + 20))
+    screen.blit(text_surface, text_rect)
+
+def vrati_se_u_meni():
+    zaustavi_muziku_borbe()
+    pusti_muziku_menija()
+
+def create_selected_fighter(character_id, x, y, flip, controls):
+    character = CHARACTERS.get(character_id, CHARACTERS["woody"])
+    return character["create"](x, y, flip, controls)
