@@ -37,7 +37,7 @@ class Davies(Fighter):
             if target.has_run_immunity():
                 return
 
-            target.health -= 20
+            target.health -= 30
             target.hit = False
             target.knockdown = True
             target.knockdown_hold_start = None
