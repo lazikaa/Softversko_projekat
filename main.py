@@ -8,6 +8,14 @@ from UI import draw_tally_score, draw_victory_message, prikazi_pauzu
 from HP_Stamina import draw_status_bars
 from ResourcePath import resource_path
 
+# Podesavanja
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 600
+WORLD_WIDTH = 2200
+GROUND_OFFSET = 55
+FIGHTER_HEIGHT = 153
+FIGHTER_Y = SCREEN_HEIGHT - GROUND_OFFSET - FIGHTER_HEIGHT
+
 # Kontrole
 player_1_controls = {
     "left": pygame.K_a,
