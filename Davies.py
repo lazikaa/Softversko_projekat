@@ -11,16 +11,16 @@ DAVIES_LABEL = "Davies"
 DAVIES_ROUND_WIN_TEXT = "Davies WINS THE ROUND!"
 
 class Davies(fighter):
-  def use_special(self):
-    if not self.special and not self.attacking and not self.hit and not self.knockdown and self.alive and self.magic_effects >=MAGIC_EFFECTS_REQUIRED:
-      self.knockdown and self.alive and self.magic.effects >= MAGIC_EFFECTS_REQUIRED:
-      self.magic_effects = 0
-      self.special = True 
-      self.special_hit_done = FALSE
-      self.jump = True
-      self.vel_y = -24
-      self.frame_index = 0
-      self.update_time = pygame.time.get_ticks()
+	def use_special(self):
+  	if not self.special and not self.attacking and not self.hit and not self.knockdown and self.alive and self.magic_effects >=MAGIC_EFFECTS_REQUIRED:
+    	self.knockdown and self.alive and self.magic.effects >= MAGIC_EFFECTS_REQUIRED:
+    	self.magic_effects = 0
+    	self.special = True 
+    	self.special_hit_done = FALSE
+    	self.jump = True
+    	self.vel_y = -24
+    	self.frame_index = 0
+    	self.update_time = pygame.time.get_ticks()
 
 def special_attack(self,target):
   hitbox_size = min(self.rect.width,self.rect.height) // 2
