@@ -358,7 +358,7 @@ class Fighter():
             elif knockdown_effect:
                 self.run_stamina = 0
                 self.add_magic_effect()
-            target.health -= 100
+            target.health -= 13
             target.hit = not knockdown_effect
             target.knockdown = knockdown_effect
             target.knockdown_hold_start = None
