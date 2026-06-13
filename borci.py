@@ -34,6 +34,7 @@ class Fighter():
         self.knockdown_hold_start = None
         self.attack_type = 0
         self.attack_cooldown = 0
+        self.attack_key_down = False
         self.hit = False
         self.alive = True
         self.jump_cooldown = 1000
@@ -91,13 +92,15 @@ class Fighter():
                 dx = SPEED
                 self.walking = True
             # Napad
-            if k[self.controls["attack1"]] or k[self.controls["attack2"]]:
+            attack_key_pressed = k[self.controls["attack1"]] or k[self.controls["attack2"]]
+            if attack_key_pressed and not self.attack_key_down and not self.attacking and self.attack_cooldown == 0:
                 # Procjena vrste napada
                 if k[self.controls["attack1"]]:
                     self.attack_type = 1
                 elif k[self.controls["attack2"]]:
                     self.attack_type = 2
                 self.attack(surface, target)
+            self.attack_key_down = attack_key_pressed
         elif self.special == True:
             self.special_attack(target)
 
@@ -329,8 +332,9 @@ class Fighter():
                         self.attack_cooldown = 20
 
     def attack(self, surface, target):
-        if self.attack_cooldown == 0 and self.hit == False:
-            self.attacking = True
+        if self.attacking or self.attack_cooldown != 0 or self.hit:
+            return
+        self.attacking = True
 
         hitbox_size = min(self.rect.width, self.rect.height) // 2
         hitbox_x = self.rect.right - hitbox_size // 2
