@@ -84,3 +84,47 @@ def potvrda_izlaska(screen, clock, sirina, visina):
     pygame.display.update()
     clock.tick(60)
     
+def potvrda_glavnog_menija(screen, clock, sirina, visina):
+  font_q = pygame.font.SysFont("Constantia", 40, bold=True)
+  font_btn = pygame.fontSysFont("Constantia", 35)
+
+  while True:
+    napravi_overlay(screen, 220, sirina, visina)
+    mx, my = pygame.mouse.get_pos()
+
+    nacrtaj_tekst(screen, "Return To Main Menu?", font_q, BOJE["bijela"], sirina // 2, 250, True)
+
+    y_rect = pygame.Rect(sirina // 2 - 100, 320, 80, 40)
+    n_rect = pygame.Rect(sirina // 2 + 30, 320, 80, 40)
+
+    for rect, txt in[(y_rect, "YES"), (n_rect, "NO")]:
+      boja = BOJE["crvena"] if rect.collidepoint((mx, my)) else BOJE["bijela"]
+      nacrtaj_tekst(screen, txt, font_btn, boja, rect.x, rect.y)
+
+    for event in pygame.event.get():
+      if event.type == pygame.QUIT: pygame.quit(); sys.exit()
+      if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+        if y_rect.collidepoint((mx, my)):
+          zvuk_click()
+          return True
+        if n_rect.collidepoint((mx, my)):
+          zvuk_click()
+          return False
+
+    pygame.display.update()
+    clock.tick(60)
+
+def prikazi_pauzu(screen, clock, sirina, visina):
+  font_p = pygame.font.SysFont("Constantia", 60, bold=True)
+  font_m = pygame.font.SysFont("Constantia", 35)
+
+  pauzirano = True
+  vol_bar = False
+  vol = uzmi_muziku_borbe_volumen()
+  slider_dragging = False
+
+  while pauzirano:
+    napravi_overlay(screen, 180, sirina, visina)
+    mx, my = pygame.mouse.get_pos()
+
+    nacrtaj_tekst(screen, "PAUSED", font_p, BOJE["zuta"], sirina // 2, 120, True)
