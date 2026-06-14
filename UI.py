@@ -34,28 +34,28 @@ def draw_tally_score(screen, score, x, y, font):
   lbl_rect = nacrtaj_tekst(screen, "Score: ", font, BOJE["zuta"], x, y)
   curr_x = x + lbl_rect.width + 5
 
-# Grupe po 5 i ostatak
-za_crtanje = [(score // 5, True), (score % 5, False)]
+  # Grupe po 5 i ostatak
+  za_crtanje = [(score // 5, True), (score % 5, False)]
 
-for kolicina, kosa_crta in za_crtanje:
-  for _ in range(kolicina):
-    if kosa_crta:
-      nacrtaj_tekst(screen, "IIII", font, BOJE["bijela"], curr_x, y)
-      pygame.draw.line(screen, BOJE["bijela"], (curr_x, y + 25), (curr_x + 35, y + 5), 3)
-      curr_x += 50
-    else:
-      txt = "I" * kolicina
-      nacrtaj_tekst(screen, txt, font, BOJE["bijela"], curr_x, y)
-      break
+  for kolicina, kosa_crta in za_crtanje:
+    for _ in range(kolicina):
+      if kosa_crta:
+        nacrtaj_tekst(screen, "IIII", font, BOJE["bijela"], curr_x, y)
+        pygame.draw.line(screen, BOJE["bijela"], (curr_x, y + 25), (curr_x + 35, y + 5), 3)
+        curr_x += 50
+      else:
+        txt = "I" * kolicina
+        nacrtaj_tekst(screen, txt, font, BOJE["bijela"], curr_x, y)
+        break
 
-def draw_victory_message(screen, pobjednik, font, sirina, visina):
-  nacrtaj_tekst(screen, pobjednik, font, BOJE["zuta"], sirina // 2, visina // 2 - 50, True)
+def draw_victory_message(screen, pobitelj, font, sirina, visina):
+  nacrtaj_tekst(screen, pobitelj, font, BOJE["zuta"], sirina // 2, visina // 2 - 50, True)
 
 # MENIJI
 
 def potvrda_izlaska(screen, clock, sirina, visina):
   font_q = pygame.font.SysFont("Constantia", 40, bold=True)
-  font_btn = pygame.font.Sys.Font("Constantia", 35)
+  font_btn = pygame.font.SysFont("Constantia", 35)
 
   while True:
     napravi_overlay(screen, 220, sirina, visina)
@@ -69,7 +69,7 @@ def potvrda_izlaska(screen, clock, sirina, visina):
     # YES / NO dugmad
     for rect, txt, action in [(y_rect, "YES", True), (n_rect, "NO", False)]:
       boja = BOJE["crvena"] if rect.collidepoint((mx, my)) else BOJE["bijela"]
-      nacrtaj_tekst(screen, tekst, font_btn, boja, rect.x, rect.y)
+      nacrtaj_tekst(screen, txt, font_btn, boja, rect.x, rect.y)
 
     for event in pygame.event.get():
       if event.type == pygame.QUIT: pygame.quit(); sys.exit()
@@ -86,7 +86,7 @@ def potvrda_izlaska(screen, clock, sirina, visina):
     
 def potvrda_glavnog_menija(screen, clock, sirina, visina):
   font_q = pygame.font.SysFont("Constantia", 40, bold=True)
-  font_btn = pygame.fontSysFont("Constantia", 35)
+  font_btn = pygame.font.SysFont("Constantia", 35)
 
   while True:
     napravi_overlay(screen, 220, sirina, visina)
@@ -97,7 +97,7 @@ def potvrda_glavnog_menija(screen, clock, sirina, visina):
     y_rect = pygame.Rect(sirina // 2 - 100, 320, 80, 40)
     n_rect = pygame.Rect(sirina // 2 + 30, 320, 80, 40)
 
-    for rect, txt in[(y_rect, "YES"), (n_rect, "NO")]:
+    for rect, txt in [(y_rect, "YES"), (n_rect, "NO")]:
       boja = BOJE["crvena"] if rect.collidepoint((mx, my)) else BOJE["bijela"]
       nacrtaj_tekst(screen, txt, font_btn, boja, rect.x, rect.y)
 
@@ -182,7 +182,7 @@ def prikazi_pauzu(screen, clock, sirina, visina):
         if rects[2].collidepoint((mx, my)):
           zvuk_click()
           if potvrda_glavnog_menija(screen, clock, sirina, visina):
-            return "main menu"
+            return "main_menu"
         if rects[3].collidepoint((mx, my)):
           zvuk_click()
           potvrda_izlaska(screen, clock, sirina, visina)
