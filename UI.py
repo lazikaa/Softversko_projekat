@@ -128,3 +128,32 @@ def prikazi_pauzu(screen, clock, sirina, visina):
     mx, my = pygame.mouse.get_pos()
 
     nacrtaj_tekst(screen, "PAUSED", font_p, BOJE["zuta"], sirina // 2, 120, True)
+
+    # Dugmad definicija
+    btn_data = [
+      ("Continue", 240, 120),
+      ("Sound", 310, 100),
+      ("Main Menu", 380, 160),
+      ("Quit Game", 450, 150)
+    ]
+
+    rects = []
+    for tekst, y_pos, sirina_hitbox in btn_data:
+      r = pygame.Rect(sirina // 2 - sirina_hitbox // 2, y_pos, sirina_hitbox, 40)
+      boja = BOJE["crvena"] if r.collidepoint((mx, my)) else BOJE["bijela"]
+      nacrtaj_tekst(screen, tekst, font_m, boja, sirina // 2, y_pos, True)
+      rects.append(r)
+
+    # Volume slider
+    mute_rect = pygame.Rect(0,0,0,0)
+    if vol_bar:
+      bx, by, bw = sirina // 2 - 100, 500, 200
+      mute_rect = draw_volume_slider(screen, bx, by, bw, vol, vol == 0, (mx, my), BOJE)
+
+      if slider_dragging and pygame.mouse.get_pressed()[0]:
+        vol = volume_from_mouse(mx, bx, bw)
+        podesi_muziku_borbe_volumen(vol)
+      elif not pygame.mouse.get_pressed()[0]:
+        slider_dragging = False
+    else:
+      slider_dragging = False
