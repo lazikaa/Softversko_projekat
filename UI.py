@@ -157,3 +157,40 @@ def prikazi_pauzu(screen, clock, sirina, visina):
         slider_dragging = False
     else:
       slider_dragging = False
+
+    for event in pygame.event.get():
+      if event.type == pygame.QUIT: pygame.quit(); sys.exit()
+      if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE: pauzirano = False
+      if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+        slider_dragging = False
+      if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+        if vol_bar:
+          bx, by, bw = sirina // 2 - 100, 500, 200
+          slider_rect = pygame.Rect(bx, by - 15, bw, 40)
+          if slider_rect.collidepoint((mx, my)):
+            slider_dragging = True
+            vol = volume_from_mouse(mx, bx, bw)
+            podesi_muziku_borbe_volumen(vol)
+            continue
+
+        if rects[0].collidepoint((mx, my)):
+          zvuk_click()
+          pauzirano = False
+        if rects[1].collidepoint((mx, my)):
+          zvuk_click()
+          vol_bar = not vol_bar
+        if rects[2].collidepoint((mx, my)):
+          zvuk_click()
+          if potvrda_glavnog_menija(screen, clock, sirina, visina):
+            return "main menu"
+        if rects[3].collidepoint((mx, my)):
+          zvuk_click()
+          potvrda_izlaska(screen, clock, sirina, visina)
+        if vol_bar and mute_rect.collidepoint((mx, my)):
+          zvuk_click()
+          vol = 0 if vol > 0 else 0.5
+          podesi_muziku_borbe_volumen(vol)
+
+      pygame.display.update()
+      clock.tick(60)
+      
